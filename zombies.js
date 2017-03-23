@@ -1,3 +1,6 @@
+/*jshint esversion: 6 */
+"use strict";
+
 /**
  * Class => Item(name)
  * -----------------------------
@@ -21,10 +24,9 @@
     if(typeof newName !== "string"){
       throw new Error ("Please enter name of item");
     }
-    this._name = name;
+    this._name = newName;
   }
  }
-
 
 /**
  * Class => Weapon(name, damage)
@@ -42,6 +44,24 @@
  * @property {number} damage
  */
 
+class Weapon extends Item {
+  constructor(name, damage){
+    super(name);
+    this._damage = damage;
+  }
+
+  get damage(){
+    return this._damage;
+  }
+
+  set damage(value){
+     if(typeof newName !== "number"){
+      throw new Error ("Please enter a number");
+    }
+    this._damage = value;
+
+  }
+}
 
 /**
  * Weapon Extends Item Class
