@@ -55,9 +55,9 @@ class Weapon extends Item {
   }
 
   set damage(value){
-     if(typeof newName !== "number"){
-      throw new Error ("Please enter a number");
-    }
+    //  if(typeof value !== "number"){
+    //   throw new Error ("Please enter a number");
+    // }
     this._damage = value;
 
   }
@@ -89,20 +89,20 @@ class Weapon extends Item {
 class Food extends Item {
   constructor(name, energy){
     super(name);
-    this.name = name;
-    this.energy = energy;
+    this._name = name;
+    this._energy = energy;
   }
 
-  // get energy(){
-  //   return this.energy;
-  // }
+  get energy(){
+    return this._energy;
+  }
 
-  // set energy(value){
-  //    if(typeof newName !== "number"){
-  //     throw new Error ("Please enter a number");
-  //   }
-  //   this.energy = value;
-  // }
+  set energy(value){
+     if(typeof value !== "number"){
+      throw new Error ("Please enter a number");
+    }
+    this._energy = value;
+  }
 }
 
 
@@ -135,6 +135,69 @@ class Food extends Item {
  * @property {method} getMaxHealth         Returns private variable `maxHealth`.
  */
 
+class Player {
+
+  constructor(name, health, strength, speed){
+    this._pack = [];
+    this._maxHealth = health;
+
+    this.name = name;
+    this.health = health;
+    this.strength = strength;
+    this.speed = speed;
+    this.isAlive = true;
+    this.equipped = false;
+  }
+
+  getPack(){
+   return this._pack;
+
+  }
+
+  getMaxHealth(){
+    return this._maxHealth;
+
+  }
+
+  checkPack(){
+    console.log(this.getPack());
+
+  }
+
+  takeItem(item){
+    console.log(this._pack.length);
+    if (this._pack.length >= 3){
+      var msgA = this.name + " pack is too full to add " + this.item;
+      return false;
+    }
+    if (this.getPack.length < 3){
+      this.getPack().push(item);
+      console.log(this.name + " has added " + this.item + "to their Pack.");
+    }
+
+
+  }
+
+  discardItem(){
+
+  }
+
+  equip(itemToEquip){
+
+  }
+
+  eat(itemToEat){
+
+  }
+
+  useItem(item){
+
+  }
+
+  equippedWith(){
+
+  }
+}
 
 /**
  * Player Class Method => checkPack()
