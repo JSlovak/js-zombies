@@ -362,13 +362,12 @@ class Player {
  */
 
 class Zombie {
-  constructor(name, health, strength, speed){
-    this.name = name;
-    this.health = health;
-    this.strength = strenth;
-    this.speed = speed;
+  constructor( health, strength, speed){
+    this._maxHealth = health;
 
-    this._maxHealth = 100;
+    this.health = health;
+    this.strength = strength;
+    this.speed = speed;
     this.isAlive = true;
   }
 }
@@ -391,9 +390,9 @@ class Zombie {
 class FastZombie extends Zombie {
   constructor(health, strength, speed){
     super(FastZombie, health, strength, speed);
-
   }
 }
+
 /**
  * FastZombie Extends Zombie Class
  * -----------------------------
