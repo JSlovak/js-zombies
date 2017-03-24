@@ -169,13 +169,13 @@ class Player {
     var amtItems = this.getPack().length;
 
     if (amtItems >= 3){
-      console.log(this.name + " pack is too full to add " + this.item);
+      console.log(this.name + " pack is too full to add " + item + "Please, choose an item to discard first.");
       return false;
     }
 
     if (amtItems < 3){
       this.getPack().push(item);
-      console.log(this.name + " has added " + this.item + "to their Pack.");
+      console.log(this.name + " has added " + item + "to their Pack.");
     }
   }
 
@@ -195,41 +195,32 @@ class Player {
     }
   }
 
-
-  equip(itemToEquip){
-    var thisItem = this.getPack().indexOf(this.item);
-    var notThere = -1;
-
-    if (itemToEquip instanceof Weapon === false){
-      return false;
-    }
-
-    if (thisItem === notThere){
-      return false;
-    }
-
-
-    if ( this.equipped !== false){
-    }
-
-    else {
-
+  equip(itemToEquip) {
+   if(this.equipped !== false){
+      this._pack[this._pack.indexOf(itemToEquip)] = this.equipped;
       this.equipped = itemToEquip;
 
-    }
+      }
+      else if(this._pack.indexOf(itemToEquip) === -1 || itemToEquip instanceof Weapon === false){
+        return false;
+
+      }else {
+        this.equipped = itemToEquip;
+        this.discardItem(itemToEquip);
+      }
   }
 
   eat(itemToEat){
-    var thisItem = this.getPack().indexOf(this.item);
-    var notThere = -1;
-
-    if (itemToEat instanceof Food === false){
+    if(this._pack.indexOf(itemToEat) === -1 || itemToEat instanceof Food === false){
       return false;
     }
-
-    if(thisItem === notThere){
-      return false;
+    else if(this.getMaxHealth() - this.health <= itemToEat.energy){
+      this.health = this.getMaxHealth();
     }
+    else{
+      this.health += itemToEat.energy;
+    }
+    this.discardItem(itemToEat);
 
   }
 
@@ -237,15 +228,15 @@ class Player {
     var thisItem = this.getPack().indexOf(this.item);
     var notThere = -1;
 
-    if(thisItem === notThere){
-      return false;
-    }
+    // if(thisItem === notThere){
+    //   return false;
+    // }
 
-    if(item instanceof Food){
+    if(item instanceof Food === true){
       this.eat(item);
     }
 
-    if(item instanceof Weapon){
+    if(item instanceof Weapon === true){
       this.equip(item);
 
     }
@@ -254,15 +245,13 @@ class Player {
   }
 
   equippedWith(){
-
-    if(this.equipped === false){
-      console.log( this.name + " is unarmed.");
-      return false;
+    if(this.equipped !== false){
+      console.log(this.name + " has equipped: " + this.equipped.name);
+      return this.equipped.name;
     }
-
-    else {
-      console.log(this.name + " is armed with " + this.equipped);
-      return this.equipped;
+      else {
+        console.log("Nothing is equipped.");
+        return false;
     }
   }
 }
