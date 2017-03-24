@@ -194,11 +194,14 @@ class Player {
   }
 
   equip(itemToEquip) {
+    var thisItem = this.getPack().indexOf(itemToEquip);
+    var notThere = -1;
+
    if(this.equipped !== false){
-      this._pack[this._pack.indexOf(itemToEquip)] = this.equipped;
+      this.getPack()[thisItem] = this.equipped;
       this.equipped = itemToEquip;
     }
-      else if(this._pack.indexOf(itemToEquip) === -1 || itemToEquip instanceof Weapon === false){
+      else if(thisItem === notThere || itemToEquip instanceof Weapon === false){
         return false;
     }
       else {
@@ -208,7 +211,10 @@ class Player {
   }
 
   eat(itemToEat){
-    if(this._pack.indexOf(itemToEat) === -1 || itemToEat instanceof Food === false){
+     var thisItem = this.getPack().indexOf(itemToEat);
+      var notThere = -1;
+
+    if(thisItem === notThere || itemToEat instanceof Food === false){
       return false;
     }
       else if(this.getMaxHealth() - this.health <= itemToEat.energy){
